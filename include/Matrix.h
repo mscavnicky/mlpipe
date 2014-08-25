@@ -53,6 +53,8 @@ public:
 
 	/** Create matrix with given diagonal. All other values are equal to 0. */
 	static Matrix diagonal_matrix(Vector& diagonal);
+	/** Create random matrix with weights randomly initialized in the interval [0,1] */
+	static Matrix random_matrix(uint rows, uint cols);
 
 	friend ostream& operator<<(ostream& out, const Matrix& m);
 };

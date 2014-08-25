@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 #include "Utils.h"
 #include "Vector.h"
@@ -131,14 +132,6 @@ void Matrix::copy(const Matrix& m)
             m_[i][j] = m.get(i, j);
 }
 
-Matrix Matrix::diagonal_matrix(Vector& diagonal)
-{
-	Matrix m(diagonal.length(), diagonal.length());
-	for (uint i = 0; i < diagonal.length(); i++)
-		m.set(i, i, diagonal[i]);
-	return m;
-}
-
 Matrix Matrix::submatrix(uint rows, uint cols)
 {
 	Matrix m(rows, cols);
@@ -151,10 +144,31 @@ Matrix Matrix::submatrix(uint rows, uint cols)
 Matrix Matrix::transpose()
 {
 	Matrix m(cols_, rows_);
-	 for (uint i = 0; i < cols_; i++)
+	for (uint i = 0; i < cols_; i++)
         for (uint j = 0; j < rows_; j++)
             m.set(j, i, m_[i][j]);
 	return m;
+}
+
+Matrix Matrix::diagonal_matrix(Vector& diagonal)
+{
+    Matrix m(diagonal.length(), diagonal.length());
+    for (uint i = 0; i < diagonal.length(); i++)
+        m.set(i, i, diagonal[i]);
+    return m;
+}
+
+Matrix Matrix::random_matrix(uint rows, uint cols)
+{
+    Matrix m(rows, cols);
+    for (uint i = 0; i < rows; i++)
+        for (uint j = 0; j < cols; j++)
+        {
+            // Random number in the range [0, 1]
+            double d = (double) rand() / (double) RAND_MAX;
+            m.set(j, i, d);
+        }
+    return m;
 }
 
 ostream& operator<<(ostream& out, const Matrix& m)

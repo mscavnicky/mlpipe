@@ -1,13 +1,43 @@
 #include <stdlib.h>
 #include <iostream>
 
+#include "Matrix.h"
 #include "TrainingSetReader.h"
 #include "NetworkReader.h"
 #include "Backpropagation.h"
 
 using namespace std;
 
-void test_task(const char* argv[]) {
+/** Initialize a network with randomly initialized weights. */
+void init_task(int argc, const char* argv[]) 
+{
+	Network network;
+
+	string activation_function = argv[2];
+	if (activation_function == "sigmoid")
+		network.set_af(new Sigmoid());
+	else if (activation_function == "tanh")
+		network.set_af(new HyperbolicTangent());
+	else
+		throw "Invalid activation function.";
+
+	// Random weight matrices
+	int prev_num_neurons = to_int(argv[3]);
+	for (int i = 1; i < argc - 3; i++) {
+		int num_neurons = to_int(argv[i+3]);
+
+		Matrix weights = Matrix::random_matrix(prev_num_neurons + 1, num_neurons);
+		network.add_matrix(weights);
+
+		prev_num_neurons = num_neurons;
+	}
+
+	// Output network to STDOUT
+	cout << network;
+}
+
+void test_task(const char* argv[]) 
+{
 	string training_set_filename(argv[2]);
     string network_filename(argv[3]);
 
@@ -32,7 +62,8 @@ void test_task(const char* argv[]) {
     delete training_set;
 }
 
-void train_task(const char* argv[]) {
+void train_task(const char* argv[]) 
+{
 	string training_set_filename(argv[2]);
 	string network_filename(argv[3]);
 	string c(argv[4]);
@@ -66,7 +97,7 @@ int main(int argc, const char* argv[])
 {
 	if (argc == 1)
 	{
-		cout << "Usage: 'mlpipe train' or 'mlpipe test'" << endl;
+		cout << "Usage: 'mlpipe init|train|test'" << endl;
 		return 1;
 	}
 
@@ -74,7 +105,16 @@ int main(int argc, const char* argv[])
 
 	try
     {
-		if (task == "test") 
+    	if (task == "init")
+    	{
+    		if (argc < 5)
+    		{
+    			cout << "Usage: mlpipe init sigmoid|tanh layer1 layer2 ..." << endl;
+    			return 1;
+    		}
+    		init_task(argc, argv);
+    	}
+		else if (task == "test") 
 		{
 			if (argc != 4)
 			{
@@ -83,7 +123,7 @@ int main(int argc, const char* argv[])
 			}
 			test_task(argv);
 		}
-		if (task == "train") 
+		else if (task == "train") 
 		{
 			if (argc != 6)
 			{
