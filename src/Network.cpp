@@ -21,7 +21,7 @@ Vector Network::feed_forward(const Vector& input) const
 	if (input.length() + 1 != weights_[0].rows())
 		throw "Training set does not match network.";
 
-    Vector& output = Vector(input);
+    Vector output = Vector(input);
     for (uint i = 0; i < weights_.size(); i++)
         output = step(output, weights_[i]);
     return output;
@@ -32,7 +32,7 @@ Vector Network::feed_forward(const Vector& input, vector<Vector>& layer_outputs)
 	if (input.length() + 1 != weights_[0].rows())
 		throw "Training set does not match network.";
 
-    Vector& output = Vector(input);
+    Vector output = Vector(input);
 	for (uint i = 0; i < weights_.size(); i++)
 	{
 		layer_outputs.push_back(output);

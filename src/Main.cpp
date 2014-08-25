@@ -4,7 +4,6 @@
 #include "TrainingSetReader.h"
 #include "NetworkReader.h"
 #include "Backpropagation.h"
-#include "Test.h"
 
 using namespace std;
 
@@ -67,7 +66,7 @@ int main(int argc, const char* argv[])
 {
 	if (argc == 1)
 	{
-		cout << "Please specify task: 'mlpipe train' or 'mlpipe test'";
+		cout << "Usage: 'mlpipe train' or 'mlpipe test'" << endl;
 		return 1;
 	}
 
@@ -79,7 +78,7 @@ int main(int argc, const char* argv[])
 		{
 			if (argc != 4)
 			{
-				cout << "Usage: mlpipe test testing_set_file network_file";
+				cout << "Usage: mlpipe test testing_set_file network_file" << endl;
 				return 1;
 			}
 			test_task(argv);
@@ -88,7 +87,7 @@ int main(int argc, const char* argv[])
 		{
 			if (argc != 6)
 			{
-				cout << "Usage: mlpipe train training_set_file network_file cycles rate";
+				cout << "Usage: mlpipe train training_set_file network_file cycles rate" << endl;
 				return 1;
 			}
 			train_task(argv);
