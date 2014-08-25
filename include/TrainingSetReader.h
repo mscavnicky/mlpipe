@@ -11,9 +11,9 @@ private:
     LinesReader linesReader_;
 
     uint input_length_;
-	uint output_length_;
+    uint output_length_;
 public:
-	/* Reads training set from a file. */
+    /* Reads training set from a file. */
     TrainingSet* read(string& filename);
 };
 

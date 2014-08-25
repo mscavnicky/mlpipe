@@ -5,8 +5,8 @@ Network* NetworkReader::read(const string& filename)
     Network* network = new Network();
 
     vector<string>* lines = linerReader_.read_lines(filename);
-	if (lines->size() == 0)
-		throw "Empty network file.";
+    if (lines->size() == 0)
+        throw "Empty network file.";
 
     vector<string>::iterator it = lines->begin();
 

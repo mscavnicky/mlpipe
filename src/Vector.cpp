@@ -9,9 +9,9 @@ using namespace std;
 Vector::Vector(int length)
 {
     components_ = new double[length];
-	length_ = length;
-	for (uint i = 0; i < length_; i++)
-		components_[i] = 0.0;
+    length_ = length;
+    for (uint i = 0; i < length_; i++)
+        components_[i] = 0.0;
 }
 
 Vector::Vector(const string& s)
@@ -51,10 +51,10 @@ Vector& Vector::operator=(const Vector& v)
 
 Matrix Vector::operator*(const Vector& v)
 {
-	Matrix m(length_, v.length());
+    Matrix m(length_, v.length());
     for (uint i = 0; i < length_; i++)
       for (uint j = 0; j < v.length(); j++)
-		  m.set(j, i, components_[i] * v[j]);
+          m.set(j, i, components_[i] * v[j]);
     return m;
 }
 
@@ -83,10 +83,10 @@ Vector& Vector::operator*=(const double d)
 
 Vector& Vector::operator-=(const Vector& v)
 {
-	if (v.length() != length())
-		throw "Cannot subtract vectors of different sizes.";
+    if (v.length() != length())
+        throw "Cannot subtract vectors of different sizes.";
 
-	for (uint i = 0; i < length(); i++)
+    for (uint i = 0; i < length(); i++)
         components_[i] -= v[i];
     return *this;
 }
@@ -110,7 +110,7 @@ void Vector::copy(const Vector& v)
 }
 
 ostream& operator<<(ostream& out, const Vector& v)
-{	
+{   
     for (uint i = 0; i < v.length(); i++)
         out << v[i] << " ";
     return out;

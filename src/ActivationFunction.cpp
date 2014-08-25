@@ -18,13 +18,13 @@ Vector& ActivationFunction::apply_derivative(Vector& v)
 
 double Sigmoid::compute(double x)
 {
-	double ex = exp(-x);
+    double ex = exp(-x);
     return (double) (1.0 / (1.0 + ex));
 }
 
 double Sigmoid::compute_derivative(double primitive)
 {
-	return primitive * (1.0 - primitive);
+    return primitive * (1.0 - primitive);
 }
 
 double HyperbolicTangent::compute(double x)
@@ -35,5 +35,5 @@ double HyperbolicTangent::compute(double x)
 
 double HyperbolicTangent::compute_derivative(double primitive)
 {
-	return 1.0 - primitive * primitive;
+    return 1.0 - primitive * primitive;
 }

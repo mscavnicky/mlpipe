@@ -7,12 +7,12 @@
 class Pattern 
 {
 public:
-	Vector input_;
-	Vector output_;
+    Vector input_;
+    Vector output_;
 
-	Pattern(Vector input, Vector output);
+    Pattern(Vector input, Vector output);
 
-	friend ostream& operator<<(ostream& out, const Pattern& p);
+    friend ostream& operator<<(ostream& out, const Pattern& p);
 };
 
 #endif 

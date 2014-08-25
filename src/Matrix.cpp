@@ -9,18 +9,18 @@ using namespace std;
 Matrix::Matrix(int rows, int cols):
 rows_(rows), cols_(cols)
 {
-	allocate();
+    allocate();
 
-	for (uint i = 0; i < cols_; i++)
-		for (uint j = 0; j < rows_; j++)
-			m_[i][j] = 0.0;
+    for (uint i = 0; i < cols_; i++)
+        for (uint j = 0; j < rows_; j++)
+            m_[i][j] = 0.0;
 }
 
 Matrix::Matrix(const vector<string>& lines)
 {
     rows_ = lines.size();
 
-	// Parses lines by converting them onto Vector
+    // Parses lines by converting them onto Vector
     vector<Vector> vector_rows;
     for (uint i = 0; i < rows_; i++)
     {
@@ -32,7 +32,7 @@ Matrix::Matrix(const vector<string>& lines)
 
     allocate();
 
-	// Copies data from parsed Vectors
+    // Copies data from parsed Vectors
     for (uint i = 0; i < cols_; i++)
         for (uint j = 0; j < rows_; j++)
             m_[i][j] = vector_rows[j][i];
@@ -47,53 +47,53 @@ Matrix& Matrix::operator=(const Matrix& m)
 {
     if (this != &m)
     {
-		clean();
-		copy(m);
+        clean();
+        copy(m);
     }
     return *this;
 }
 
 Matrix& Matrix::operator+=(const Matrix& m)
 {
-	if (cols_ != m.cols() || rows_ != m.rows())
-		throw "Matrices not of same size.";
+    if (cols_ != m.cols() || rows_ != m.rows())
+        throw "Matrices not of same size.";
 
-	for (uint i = 0; i < cols_; i++)
-		for (uint j = 0; j < rows_; j++)
-			m_[i][j] += m.get(i, j);
-	return *this;
+    for (uint i = 0; i < cols_; i++)
+        for (uint j = 0; j < rows_; j++)
+            m_[i][j] += m.get(i, j);
+    return *this;
 }
 
 Matrix& Matrix::operator*=(const double d)
 {
     for (uint i = 0; i < cols_; i++)
-		for (uint j = 0; j < rows_; j++)
-			m_[i][j] *= d;
+        for (uint j = 0; j < rows_; j++)
+            m_[i][j] *= d;
     return *this;
 }
 
 Vector Matrix::operator*(const Vector& v)
 {
-	if (cols_ != v.length())
+    if (cols_ != v.length())
       throw "Multiplying matrix with vector of incorrect length.";
 
-	Vector res(rows_);
+    Vector res(rows_);
     for (uint i = 0; i < rows_; i++)
-		for (uint j = 0; j < cols_; j++)
-			res.set(i, res[i] + v[j] * m_[j][i]);
+        for (uint j = 0; j < cols_; j++)
+            res.set(i, res[i] + v[j] * m_[j][i]);
 
     return res;
 }
 
 Matrix Matrix::operator*(const Matrix& m)
 {
-	if (cols_ != m.rows())
+    if (cols_ != m.rows())
       throw "Multiplying matrix with matrix of incorrect size";
 
     Matrix result(rows_, m.cols());
     for (uint i = 0; i < rows_; i++) 
       for (uint j = 0; j < m.cols(); j++) 
-	  {
+      {
         double sum = 0.0;
         for (uint k = 0; k < cols_; k++)
           sum += m_[k][i] * m.get(j, k);
@@ -134,20 +134,20 @@ void Matrix::copy(const Matrix& m)
 
 Matrix Matrix::submatrix(uint rows, uint cols)
 {
-	Matrix m(rows, cols);
-	for (uint i = 0; i < cols; i++)
+    Matrix m(rows, cols);
+    for (uint i = 0; i < cols; i++)
         for (uint j = 0; j < rows; j++)
-            m.set(i, j, m_[i][j]);		
-	return m;
+            m.set(i, j, m_[i][j]);      
+    return m;
 }
 
 Matrix Matrix::transpose()
 {
-	Matrix m(cols_, rows_);
-	for (uint i = 0; i < cols_; i++)
+    Matrix m(cols_, rows_);
+    for (uint i = 0; i < cols_; i++)
         for (uint j = 0; j < rows_; j++)
             m.set(j, i, m_[i][j]);
-	return m;
+    return m;
 }
 
 Matrix Matrix::diagonal_matrix(Vector& diagonal)
@@ -173,11 +173,11 @@ Matrix Matrix::random_matrix(uint rows, uint cols)
 
 ostream& operator<<(ostream& out, const Matrix& m)
 {
-	for (uint i = 0; i < m.rows(); i++)
-	{		
-		for (uint j = 0; j < m.cols(); j++)
-			out << m.get(j, i) << " ";
-		out << endl;
-	}
-	return out;
+    for (uint i = 0; i < m.rows(); i++)
+    {       
+        for (uint j = 0; j < m.cols(); j++)
+            out << m.get(j, i) << " ";
+        out << endl;
+    }
+    return out;
 }

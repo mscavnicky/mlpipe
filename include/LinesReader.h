@@ -10,8 +10,8 @@ using namespace std;
 class LinesReader
 {
 public:
-	/** Reads text file into vector of lines. */
-	vector<string>* read_lines(const string& filename);
+    /** Reads text file into vector of lines. */
+    vector<string>* read_lines(const string& filename);
 };
 
 #endif

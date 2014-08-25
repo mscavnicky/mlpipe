@@ -12,7 +12,7 @@ class NetworkReader
 private:
     LinesReader linerReader_;
 public:
-	/* Reads network from a file. */
+    /* Reads network from a file. */
     Network* read(const string& filename);
 };
 
